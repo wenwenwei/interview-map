@@ -14,24 +14,37 @@
 </head>
 
 <body>
+
   <style>
     .container {
-      overflow: hidden;
+      display: grid;
+      grid-template-columns: 200px auto 100px;
+      grid-auto-flow: column;
       height: 200px;
-      border: 1px solid #000;
+    }
+
+    .left,
+    .main,
+    .right {
+      height: 100%;
     }
 
     .left {
-      float: left;
       background-color: pink;
     }
 
     .right {
+      background-color: green;
+    }
+
+    .main {
       background-color: #eaeaea;
     }
   </style>
+
   <div class="container">
     <div class="left">left</div>
+    <div class="main">main</div>
     <div class="right">right</div>
   </div>
 
