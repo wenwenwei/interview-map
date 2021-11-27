@@ -16,38 +16,30 @@
 <body>
 
   <style>
-    .container {
-      display: grid;
-      grid-template-columns: 200px auto 100px;
-      grid-auto-flow: column;
+    .box {
       height: 200px;
     }
 
-    .left,
-    .main,
-    .right {
-      height: 100%;
+    .box div:nth-child(1) {
+      float: left;
+      background-color: red;
     }
 
-    .left {
-      background-color: pink;
-    }
+    .box div:nth-child(2) {}
 
-    .right {
-      background-color: green;
-    }
-
-    .main {
-      background-color: #eaeaea;
+    .box div:nth-child(3) {
+      float: right;
     }
   </style>
-
-  <div class="container">
-    <div class="left">left</div>
-    <div class="main">main</div>
-    <div class="right">right</div>
+  <div class="box">
+    <div>1</div>
+    <div>3</div>
+    <div>2</div>
   </div>
 
+  <!-- <script src="./javascript/test.js"></script> -->
+  <script>
+  </script>
 </body>
 
 </html>
