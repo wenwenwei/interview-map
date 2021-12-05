@@ -15,30 +15,29 @@
 
 <body>
 
-  <style>
-    .box {
-      height: 200px;
-    }
 
-    .box div:nth-child(1) {
-      float: left;
-      background-color: red;
-    }
-
-    .box div:nth-child(2) {}
-
-    .box div:nth-child(3) {
-      float: right;
-    }
-  </style>
-  <div class="box">
-    <div>1</div>
-    <div>3</div>
-    <div>2</div>
-  </div>
-
-  <!-- <script src="./javascript/test.js"></script> -->
   <script>
+    class Person {
+      constructor() {
+        this.name = 'name'
+        this.say = function () {
+          console.log('say')
+        }
+      }
+
+      eat() {
+        console.log('eat')
+      }
+    }
+
+    class Son extends Person {
+      constructor() {
+        super()
+      }
+    }
+
+    let s = new Son()
+    console.log(s) // 拥有name say eat
   </script>
 </body>
 
