@@ -18,7 +18,19 @@
 * 同样的模块会存在缓存
 * 所有代码都运行在模块作用域，不会污染全局作用域
 
+**commonjs的学习指标**
+* commonjs的导入导出
+```javascript
+// 导出
+// export or module.export
+export.a = 1
+export.b = 2
 
+//or
+module.exprot = { a: 1, b: 2 }
+
+```
+* commonjs的模块化原理
 
 #### AMD（Asynchronous Module Definition）
 
