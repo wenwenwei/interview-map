@@ -1,5 +1,158 @@
 # ECMAScript
 
+### `Iterator`和`for...of`循环
+
+> [参考文献：`Iterator`和`for...of`循环](https://es6.ruanyifeng.com/#docs/iterator)
+
+
+
+* `Iterator`的作用
+1. 为各种数据结构提供一个统一的、简便的接口
+2. 使得数据结构各成员能够按照某种次序排列
+3. `for...of`循环依赖`Iterator`
+
+* 默认`Iterator`接口
+
+  `Iterator`的目的是为所有的数据结构提供一种统一的访问机制，即`for...of`。当使用`for...of`时，会自动的去寻找`Iterator`接口
+
+  一种数据结构只要部署了`Iterator`接口，就是“可遍历的”(`Iterable`)
+
+  ES6规定`Iterator`部署在数据结构的`[Symbol.iterator]`属性接口，它的值是`function`
+
+  ```javascript
+  let obj = {
+      [Symbol.iterator]: function () {
+          return {
+              next: function () {
+                  return {
+                      value: 1,
+                      done: true
+                  }
+              }
+          }
+      }
+  }
+  ```
+
+  **原生具备`Iterator`接口：**`Array Map Set String TypeArray 函数的arguments NodeList对象`
+
+* 调用`Iterator`接口的场合
+
+  **解构赋值**
+
+  **扩展运算符**
+
+  任何具备`Iterator`的接口，都可以对它使用扩展运算符转化为数组
+
+  **yield* **
+
+  **其它场合**
+
+  由于数组的遍历会调用遍历器接口，所以所有数组作为参数的场合，其实都调用了遍历器接口，下面是例子：
+
+  ```javascript
+  for...for;
+  Aarray.from();
+  Map(); Set(); WeakMap(); WeatkSet()
+  Promise.all(); Promise.race();
+  ```
+
+* 字符串的`Iterator`接口
+
+  ```javascript
+  var str = new String("hi");
+  
+  [...str] // ["h", "i"]
+  
+  str[Symbol.iterator] = function() {
+    return {
+      next: function() {
+        if (this._first) {
+          this._first = false;
+          return { value: "bye", done: false };
+        } else {
+          return { done: true };
+        }
+      },
+      _first: true
+    };
+  };
+  
+  [...str] // ["bye"]
+  str // "hi"
+  ```
+
+* `Iterator`接口与`Generator`函数
+
+  `Symbol.iterator`方法最简单的实现，还是使用下一章要介绍的`Generator`函数：
+
+  ```javascript
+  let myIterator = {
+      [Symbol.iterator]: function* () {
+          yield 1;
+          yield 2;
+          yield 3;
+      }
+  }
+  
+  console.log([...myIterator]) // [1,2,3]
+  
+  // 更简单的写法
+  let obj = {
+      * [Symbol.iterator] () {
+          yield 'hello';
+          yield 'world'
+      }
+  }
+  console.log([...obj]) // ['hello', 'world']
+  ```
+
+* 遍历器对象的`return()`和`throw()`
+
+  ```javascript
+  function readLinesSync (file) {
+      return {
+          [Symbol.iterator] () {
+              return {
+                  next () {
+                      return { done: false }
+                  },
+                  return () {
+                      file.close()
+                      return { done: true }
+                  }
+              }
+          }
+      }
+  }
+  ```
+
+  `return()`的触发时机：通过内部`break`或者`throw new Error()`会触发；`return()`必须返回一个对象，这个`Generator`语法决定的
+
+  `throw()`方法主要是配合 Generator 函数使用；
+
+* `for...of`循环
+
+  **与其它语法的比较**
+
+  `forEach`：中途无法跳出循环，`break`命令或`return`命令都不行
+
+  `for...in`: 
+
+  	1. 数组的键名是数组，但是会以字符串'0', '1'的形式返回
+  	1. 不仅遍历数字键名，还会遍历手动添加的其它键，甚至包括原型链上面的键；
+  	1. 某些情况下，会以任意顺序遍历键名
+
+  总之`for...in`是为了遍历对象，而不是遍历数组
+
+  `for...of`:
+
+  	1. 和`for...in`一样简介，但是没它的缺点
+  	1. 不同于`forEach`，它可以与`break`、`continue`、`return`一起使用
+  	1. 提供了遍历所有数据结构统一的接口
+
+
+
 ### [模块化](./Modularity/readme.md)
 
 

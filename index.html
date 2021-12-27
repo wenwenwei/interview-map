@@ -17,27 +17,13 @@
 
 
   <script>
-    class Person {
-      constructor() {
-        this.name = 'name'
-        this.say = function () {
-          console.log('say')
-        }
-      }
+let arrayLike = { length: 2, 0: 'a', 1: 'b' };
 
-      eat() {
-        console.log('eat')
-      }
-    }
-
-    class Son extends Person {
-      constructor() {
-        super()
-      }
-    }
-
-    let s = new Son()
-    console.log(s) // 拥有name say eat
+// 正确
+console.log(Array.from(arrayLike))
+for (let x of Array.from(arrayLike)) {
+  console.log(x);
+}
   </script>
 </body>
 
